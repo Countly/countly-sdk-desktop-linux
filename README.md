@@ -1,2 +1,5 @@
-# countly-sdk-desktop-linux
-C++ and Python SDKs for desktop apps on Linux
+# Countly Python SDK for Linux Desktop
+
+Currently supported GUI toolkit: 
+
+* Qt
