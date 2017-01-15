@@ -7,7 +7,21 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 from common.Countly import Countly
 
 
-def main():
+class Window(QtGui.QWidget):
+    def __init__(self):
+        QtGui.QWidget.__init__(self)
+
+        self.button = QtGui.QPushButton('Test',self)
+        self.button.clicked.connect(self.handleButton)
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(self.button)
+
+
+    def handleButton(self):
+        countly.event("buttonClick", "true")
+
+
+if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
 
     screen_resolution = app.desktop().screenGeometry()
@@ -20,14 +34,9 @@ def main():
     width = 250
     heigth = 150
 
-    w = QtGui.QWidget()
-    w.resize(width, heigth)
-    w.move(300, 300)
-    w.setWindowTitle('Simple')
-    w.show()
-
+    window = Window()
+    window.resize(width, heigth)
+    window.move(300, 300)
+    window.setWindowTitle('Countly Simple PyQT App')
+    window.show()
     sys.exit(app.exec_())
-
-
-if __name__ == '__main__':
-    main()
