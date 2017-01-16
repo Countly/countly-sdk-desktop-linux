@@ -11,14 +11,20 @@ class Window(QtGui.QWidget):
     def __init__(self):
         QtGui.QWidget.__init__(self)
 
-        self.button = QtGui.QPushButton('Test',self)
-        self.button.clicked.connect(self.handleButton)
+        self.btnEvent = QtGui.QPushButton('Click Event Test', self)
+        self.btnEvent.clicked.connect(self.handleClickEventButton)
         layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(self.button)
+        layout.addWidget(self.btnEvent)
 
+        self.btnCrash = QtGui.QPushButton('Click Crash Test', self)
+        self.btnCrash.clicked.connect(self.handleClickEventButton)
+        layout.addWidget(self.btnCrash)
 
-    def handleButton(self):
-        countly.event("buttonClick", "true")
+    def handleClickEventButton(self):
+        countly.event("eventButtonClick", "true")
+
+    def handleCrashEventButton(self):
+        countly.event("crashButtonClick", "true")
 
 
 if __name__ == '__main__':
@@ -31,12 +37,12 @@ if __name__ == '__main__':
 
     countly.event("start", "appstart")
 
-    width = 250
+    width = 350
     heigth = 150
 
     window = Window()
     window.resize(width, heigth)
     window.move(300, 300)
-    window.setWindowTitle('Countly Simple PyQT App')
+    window.setWindowTitle('Countly Simple PyQt App')
     window.show()
     sys.exit(app.exec_())
