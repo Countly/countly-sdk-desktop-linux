@@ -32,6 +32,7 @@ class Countly:
         urlStr = url_str
         appKey = app_key
         deviceId = self.get_device_id()
+        periodSecond = period_second
         _resolution = resolution
 
     def init(self):
