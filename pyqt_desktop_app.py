@@ -7,7 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 from common.Countly import Countly
 
 
-class Window(QtGui.QWidget):
+class AppWindow(QtGui.QWidget):
     def __init__(self):
         QtGui.QWidget.__init__(self)
 
@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
     screen_resolution = app.desktop().screenGeometry()
 
-    window = Window()
+    window = AppWindow()
 
     window.initCountly(0)
 
