@@ -2,4 +2,7 @@
 
 Currently supported GUI toolkit: 
 
-* Qt
+* PyQt
+* PyGTK
+* Kivy
+
