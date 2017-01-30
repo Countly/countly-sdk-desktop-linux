@@ -18,8 +18,9 @@ events_queue_file = "events.txt"
 metrics_queue_file = "metrics.txt"
 uuid_file = "uuid.txt"
 
-
+#Countly main class for all process
 class Countly:
+    #init for generic Python apps
     def __init__(self, url_str, app_key, period_second):
         global urlStr, appKey, deviceId, periodSecond, connectionStr
         urlStr = url_str
@@ -27,6 +28,7 @@ class Countly:
         deviceId = self.get_device_id()
         periodSecond = period_second
 
+    #init for GUI apps with screen resolution or window width height
     def __init__(self, url_str, app_key, period_second, resolution):
         global urlStr, appKey, deviceId, periodSecond, connectionStr, _resolution
         urlStr = url_str
@@ -38,6 +40,7 @@ class Countly:
     def init(self):
         self.init(1)
 
+    #init with thread: metrics by default
     def init(self, start_thread):
         if start_thread == 1 and periodSecond > 0:
             threading.Timer(periodSecond, self.init, [start_thread]).start()
@@ -68,6 +71,7 @@ class Countly:
                               queuemetrics[0].strip()
             self.connection_response(getrequest_init, metrics_queue_file)
 
+    #events monitoring
     def event(self, key):
         self.init(0)
         if (periodSecond > 0):
@@ -91,6 +95,7 @@ class Countly:
                 periodSecond) + "&app_key=" + appKey + "&device_id=" + deviceId + "&events=" + queueevent[0].strip()
             self.connection_response(getrequest_events, events_queue_file)
 
+    #events with count
     def event(self, key, sum_int):
         self.init(0)
         if (periodSecond > 0):
@@ -116,6 +121,7 @@ class Countly:
                 periodSecond) + "&app_key=" + appKey + "&device_id=" + deviceId + "&events=" + queueevent[0].strip()
             self.connection_response(getrequest_events, events_queue_file)
 
+    #response management
     def connection_response(self, getrequest_url, filename):
         try:
             connectionStr = httplib.HTTPSConnection(urlStr, 443)
@@ -129,6 +135,7 @@ class Countly:
         except Exception, e:
             print str(e)
 
+    #file management
     def write_file(self, filename, text):
         with open(filename, 'a+') as outfile:
             outfile.write(text + '\n')
@@ -146,6 +153,7 @@ class Countly:
         w.writelines([item for item in lines[:-1]])
         w.close()
 
+    #unique device id management
     def get_device_id(self):
         device_id = ""
         try:
